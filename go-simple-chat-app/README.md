@@ -156,7 +156,7 @@ If `go.mod` does not exist yet, create it:
 go mod init go-simple-chat-app
 ```
 
-Run the application:
+To run the Go, navigate to the Go project folder and :
 
 ```bash
 go run .
@@ -201,20 +201,6 @@ Validation worked: message cannot be empty
 ```
 
 The exact message order may be slightly different because the program uses goroutines to simulate concurrent message sending.
-
----
-
-## Testing
-
-Basic testing was completed by running the program and checking the main requirements.
-
-| Test Case                      | Expected Result                                | Status |
-| ------------------------------ | ---------------------------------------------- | ------ |
-| Multiple users send messages   | Messages are added to chat history             | Passed |
-| Chat history displays messages | All messages show with timestamps              | Passed |
-| Search by keyword              | Matching messages are displayed                | Passed |
-| Filter by user ID              | Only messages from selected user are displayed | Passed |
-| Empty message validation       | Error message is displayed                     | Passed |
 
 ---
 

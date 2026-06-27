@@ -1,8 +1,11 @@
+//Declaring modules used by this program.
+// Each module represents a separate Rust file inside the src folder.
 mod chat;
 mod message;
 mod search;
 mod user;
 
+//Imports
 use chat::{Chat, ChatAction};
 use std::sync::mpsc;
 use std::thread;
@@ -12,15 +15,19 @@ use user::User;
 fn main() {
     println!("Simple Chat Application - Rust Version");
 
+    // Create three users with ID and name for the chat application.
     let user1 = User::new(1, "Anna");
     let user2 = User::new(2, "Dmitry");
     let user3 = User::new(3, "Maria");
 
     let mut chat = Chat::new();
 
-    // Rust-specific concurrency example using threads and channels.
+    // Create a communication channel.
+    // sender   -> used to send data
+    // receiver -> used to receive data
     let (sender, receiver) = mpsc::channel();
 
+    // Create a vector of users and messages.
     let users_and_messages = vec![
         (user1.clone(), "Hello everyone!"),
         (user2.clone(), "Hi Anna, this is the Rust chat app."),
@@ -29,6 +36,10 @@ fn main() {
         (user2.clone(), "We can also filter by user ID."),
     ];
 
+    // Loop through each user-message pair in the vector.
+    //
+    // For every message, this program creates a separate thread.
+    // This simulates multiple users sending messages at the same time.
     for (user, text) in users_and_messages {
         let sender_clone = sender.clone();
 
@@ -42,6 +53,10 @@ fn main() {
 
     println!("\nSending messages...\n");
 
+    // Receive messages from the channel.
+    //
+    // This loop continues until all senders are dropped
+    // and no more messages are coming.
     for (user, text) in receiver {
         match chat.send_message(&user, &text) {
             Ok(_) => println!("Message sent by {}", user.name),
@@ -49,6 +64,10 @@ fn main() {
         }
     }
 
+    // Create a ChatAction enum value.
+    //
+    // This shows the current action in the chat program.
+    // DisplayHistory means the program is about to display chat history.
     let current_action = ChatAction::DisplayHistory;
     println!("\nCurrent action: {:?}\n", current_action);
 

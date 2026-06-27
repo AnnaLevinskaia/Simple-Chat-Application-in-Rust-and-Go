@@ -149,7 +149,7 @@ Build the project:
 cargo build
 ```
 
-Run the project:
+To run the Rust, navigate to the Rust project folder and run:
 
 ```bash
 cargo run
